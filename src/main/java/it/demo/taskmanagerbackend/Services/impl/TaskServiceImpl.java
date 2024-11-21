@@ -3,9 +3,11 @@ package it.demo.taskmanagerbackend.Services.impl;
 import it.demo.taskmanagerbackend.Entities.Task;
 import it.demo.taskmanagerbackend.Repositories.TaskRepository;
 import it.demo.taskmanagerbackend.Services.TaskService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
@@ -22,20 +24,5 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> findAllTasks() {
         return taskRepository.findAll();
-    }
-
-    @Override
-    public void createTask(Task task) {
-        taskRepository.save(task);
-    }
-
-    @Override
-    public void updateTask(Task task) {
-        taskRepository.save(task);
-    }
-
-    @Override
-    public void deleteTask(int id) {
-        taskRepository.deleteById(id);
     }
 }

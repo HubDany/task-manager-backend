@@ -9,8 +9,5 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<Users, Integer> {
     public Users findByUsername(String username);
-    public List<Users> findAllUsers();
 
-    //methods to add/update or delete users subscription
-    public void registerUser(Users user);
 }
