@@ -2,13 +2,15 @@ package it.demo.taskmanagerbackend.Services.impl;
 
 import it.demo.taskmanagerbackend.Entities.Users;
 import it.demo.taskmanagerbackend.Repositories.UserRepository;
-import it.demo.taskmanagerbackend.Services.UserService;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -17,14 +19,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("Cerco utente con username: " + username);
+
+        Users user = userRepository.findByUsername(username);
+
+        System.out.println("Utente trovato" + user.getUsername());
+
+        return User.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .roles(user.getRole())
+                .build();
+
     }
-
-    @Override
-    public List<Users> find_all_users() {
-        return userRepository.findAll();
-    }
-
-
 }
